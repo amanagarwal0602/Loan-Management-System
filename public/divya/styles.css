@@ -714,15 +714,21 @@ td[style*="color: #ef4444"] {
   .modal-content {
     width: 95%;
     max-width: none;
-    margin: 1em;
+    margin: 0.5em auto;
+    max-height: 95vh;
+    border-radius: 16px;
   }
 
   .modal-body {
     padding: 1.2em;
+    max-height: calc(95vh - 140px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .modal-header {
     padding: 1.2em 1.5em;
+    flex-shrink: 0;
   }
 
   .modal-header h2,
@@ -813,20 +819,37 @@ td[style*="color: #ef4444"] {
 
   .modal-content {
     width: 98%;
-    max-height: 95vh;
+    max-height: 96vh;
+    margin: 0.3em auto;
+    border-radius: 14px;
   }
 
   .modal-header {
     padding: 1em 1.2em;
+    flex-shrink: 0;
   }
 
   .modal-body {
     padding: 1em;
+    max-height: calc(96vh - 130px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .modal-footer {
+    flex-shrink: 0;
   }
 
   .form-actions {
     flex-direction: column;
     gap: 0.8em;
+    position: sticky;
+    bottom: 0;
+    background: var(--white);
+    padding-top: 1em;
+    margin-top: 1em;
+    border-top: 1px solid var(--border-light);
   }
 
   .form-actions .btn {
@@ -930,6 +953,8 @@ footer p {
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .modal.active {
@@ -961,6 +986,8 @@ footer p {
   border: 1px solid rgba(203, 213, 225, 0.3);
   display: flex;
   flex-direction: column;
+  margin: auto;
+  position: relative;
 }
 
 @keyframes slideUpBounce {
@@ -1044,7 +1071,9 @@ footer p {
 .modal-body {
   padding: 2.5em;
   overflow-y: auto;
+  overflow-x: hidden;
   flex: 1;
+  -webkit-overflow-scrolling: touch;
 }
 
 .modal-body::-webkit-scrollbar {
@@ -1088,6 +1117,7 @@ footer p {
 /* Apply Loan Form Specific Styles */
 #applyLoanModal .modal-content {
   max-width: 700px;
+  max-height: 90vh;
 }
 
 #applyLoanModal .modal-header {
@@ -1102,6 +1132,8 @@ footer p {
 #applyLoanModal .modal-body {
   padding: 3em 3.5em;
   background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 #applyLoanModal .form-group {
