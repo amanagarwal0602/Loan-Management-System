@@ -404,6 +404,17 @@ function openLoanAcceptanceModal(loanIndex) {
   document.getElementById('acceptTotalInterest').textContent = '₹' + totalInterest.toLocaleString('en-IN', { maximumFractionDigits: 2 });
   document.getElementById('acceptTotalPayable').textContent = '₹' + totalPayable.toLocaleString('en-IN', { maximumFractionDigits: 2 });
 
+  // Display admin notes if available
+  const adminNotesSection = document.getElementById('adminNotesSection');
+  const adminNotesText = document.getElementById('acceptAdminNotes');
+  
+  if (loan.adminNotes && loan.adminNotes.trim()) {
+    adminNotesText.textContent = loan.adminNotes;
+    adminNotesSection.style.display = 'block';
+  } else {
+    adminNotesSection.style.display = 'none';
+  }
+
   document.getElementById('loanAcceptanceModal').style.display = 'flex';
 }
 
