@@ -56,11 +56,11 @@ async function handleLogin(e) {
     return;
   }
 
-  // Check if admin login (automatic detection)
-  if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+  // Check if admin login (automatic detection) - case insensitive
+  if (username.toLowerCase() === ADMIN_CREDENTIALS.username.toLowerCase() && password === ADMIN_CREDENTIALS.password) {
     // Admin login successful
     sessionStorage.setItem('userType', 'admin');
-    sessionStorage.setItem('username', username);
+    sessionStorage.setItem('username', ADMIN_CREDENTIALS.username);
     showToast('Admin login successful!', 'success');
     setTimeout(() => {
       window.location.href = 'admin.html';
@@ -100,7 +100,8 @@ async function handleLogin(e) {
       return;
     }
     
-    const users = allData.filter(item => item.type === 'user' && item.username === username);
+    // Case-insensitive username comparison
+    const users = allData.filter(item => item.type === 'user' && item.username.toLowerCase() === username.toLowerCase());
     console.log('Filtered users:', users);
     console.log('Total records:', allData.length);
     console.log('User records:', allData.filter(item => item.type === 'user').length);
@@ -119,10 +120,10 @@ async function handleLogin(e) {
       
       // Check password (trim both to handle whitespace)
       if (String(user.password).trim() === String(password).trim()) {
-        // Login successful
+        // Login successful - store the original username from database
         sessionStorage.setItem('userType', 'user');
-        sessionStorage.setItem('username', username);
-        sessionStorage.setItem('userId', user.id || username);
+        sessionStorage.setItem('username', user.username);
+        sessionStorage.setItem('userId', user.id || user.username);
         sessionStorage.setItem('userEmail', user.email || '');
         
         showToast('Login successful!', 'success');
@@ -173,10 +174,10 @@ async function handleRegister(e) {
   try {
     showToast('Creating account...', 'success');
     
-    // Fetch all users and check for duplicates
+    // Fetch all users and check for duplicates (case-insensitive)
     const checkResponse = await fetch(API_URL);
     const allData = await checkResponse.json();
-    const existingUsers = allData.filter(item => item.type === 'user' && item.username === username);
+    const existingUsers = allData.filter(item => item.type === 'user' && item.username.toLowerCase() === username.toLowerCase());
 
     if (existingUsers && existingUsers.length > 0) {
       showToast('Username already exists', 'error');
